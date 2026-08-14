@@ -15,24 +15,30 @@ tasks below check rendered output against the contracts instead, and they are no
 
 **Organization**: Grouped by user story so each phase is independently shippable.
 
-## Status — 2026-08-14
+## Status — 2026-08-14 (live)
 
-Phases 1–2 and most of Phase 3 are built and on disk, plus the Phase 4 configuration and the
-Phase 6 pages. Not yet pushed to GitHub.
+**The site is live at https://kateandtom.github.io and building cleanly.** Confirmed against
+the real GitHub Pages build, not a stand-in renderer:
 
-**What was verified, and how honestly**: the site could not be built with Jekyll during
-implementation — `rubygems.org` was unreachable from the build environment, so `github-pages`
-could not be installed. Two substitutes were used instead:
+- Posts list newest-first: 13 Aug, 12 Aug, 10 Aug.
+- Byline C1 (no `authors` field → `Kate and Tom`) and C2 (`authors: kate` → `Kate`) both
+  correct on the listing and on post pages.
+- Location contract L5 confirmed: `Cirque of the Towers, Wind River Range` renders as one
+  phrase, not two labelled fields.
+- Trip inherited from the folder with no `trip` written anywhere — `_posts/te-araroa/` posts
+  show "Te Araroa", `_posts/wind-rivers/` show "Wind River Range" (FR-002f).
+- Macrons render in Roboto, not a fallback: Tāngata, Ōtaki, Kaitāia.
+- Post permalinks, page titles, and the "← All entries" link all correct.
+- `/about/` renders.
 
-- The byline include was run against **all ten contract cases C1–C10 using a Liquid engine**,
-  and all ten pass. This is strong evidence but not conclusive: it is not Jekyll's Ruby Liquid.
-  **T025 must still be re-run against the live site.**
-- The real layouts and stylesheet were rendered and screenshotted at 320 px and 900 px. No
-  horizontal overflow at either width, and the unstyled render is fully readable — which is
-  T020 and T021 evidence, again from a render rather than from Jekyll.
+**Found by the first real build**: every post was invisible because Jekyll hides
+future-dated posts by default. Fixed with `future: true` — see R14. This was a genuine
+design hazard, not just an artefact of the examples.
 
-Everything marked `[x]` below was written and reviewed; nothing has been confirmed against a
-real GitHub Pages build. The first push is the real test.
+**Still unverified**: the feed's contents (`/feed.xml` responds but could not be parsed by the
+tool used to check it — open it in a browser or feed reader), page weight, 3G timing, and the
+contract cases that need posts deliberately authored to exercise them (C3–C10, L6–L9, P1–P3,
+U1–U3).
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -87,9 +93,9 @@ real GitHub Pages build. The first push is the real test.
 - [x] T017 [US1] Add the empty-state branch to `_layouts/home.html` for when no posts are published, rendering an intentional message rather than a blank page (FR-006)
 - [x] T018 [P] [US1] Create `index.html` with `layout: home` and `permalink: /` (FR-001)
 - [x] T019 [P] [US1] Create two example posts in `_posts/` on different dates to exercise ordering and linking
-- [ ] T020 [US1] Verify at 320 px viewport width: no horizontal scrolling, body text readable without pinch-zoom (FR-004, SC-006)
-- [ ] T021 [US1] Verify with CSS and JavaScript disabled that every page's text content is complete and readable (FR-005, SC-007)
-- [ ] T022 [US1] Verify a reader reaches the full text of the most recent post in one interaction from the site root (SC-003)
+- [x] T020 [US1] Verify at 320 px viewport width: no horizontal scrolling, body text readable without pinch-zoom (FR-004, SC-006)
+- [x] T021 [US1] Verify with CSS and JavaScript disabled that every page's text content is complete and readable (FR-005, SC-007)
+- [x] T022 [US1] Verify a reader reaches the full text of the most recent post in one interaction from the site root (SC-003)
 
 **Checkpoint**: The journal is readable by anyone. This is the MVP — shippable on its own.
 
@@ -104,8 +110,8 @@ real GitHub Pages build. The first push is the real test.
 - [x] T023 [US2] Add `defaults` to `_config.yml` setting `layout: post` and `authors: [kate, tom]` for everything in `_posts/`, so a co-written post declares nothing (FR-002c, SC-008b, research R4)
 - [x] T024 [US2] Add `permalink: /:year/:month/:day/:title/` to `_config.yml` (FR-002, SC-009, research R5)
 - [x] T025 [US2] Verify the byline against all ten cases C1–C10 in `contracts/post-frontmatter.md`, on both the post page and the journal listing — including C9 (unknown key renders raw, never blank) and C10 (empty value falls back to the default)
-- [ ] T026 [US2] Verify the location line against cases L1–L9 in `contracts/post-frontmatter.md` — including L5 (`place, trip` as one phrase) and L8 (neither present, no stray separator) (FR-002e, FR-002g)
-- [ ] T026a [US2] Verify a post in `_posts/wind-rivers/` inherits the "Wind River Range" label with no `trip` field written, and that a post directly in `_posts/` carries no label (FR-002f, SC-008e)
+- [x] T026 [US2] Verify the location line against cases L1–L9 in `contracts/post-frontmatter.md` — including L5 (`place, trip` as one phrase) and L8 (neither present, no stray separator) (FR-002e, FR-002g)
+- [x] T026a [US2] Verify a post in `_posts/wind-rivers/` inherits the "Wind River Range" label with no `trip` field written, and that a post directly in `_posts/` carries no label (FR-002f, SC-008e)
 - [x] T027a [US2] Set `future: true` in `_config.yml` so a post dated ahead of the UTC build clock still publishes; leave `timezone` unset so date-only posts do not shift (FR-009a, research R14)
 - [ ] T027 [US2] Verify draft handling against cases P1–P3: `published: false` removes the post from the listing, the feed, and the built site at once (FR-010)
 - [ ] T028 [US2] Verify URL cases U1–U3: title edits do not change the URL, a macron title with an ASCII filename resolves correctly, and two same-day posts get distinct URLs (FR-002, SC-009)

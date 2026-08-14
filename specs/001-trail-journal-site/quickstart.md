@@ -81,14 +81,37 @@ No coordinates, ever.
 
 It reads alongside the hike name: `Titcomb Basin, Wind River Range`.
 
-### Save it without publishing
+### Drafting
 
-Add `published: false` under the title. It stays in the repo, off the site. Delete that line
-when it's ready.
+Two different problems, two different answers.
 
-**A draft is unlisted, not private.** The repository is public, so anyone who goes looking can
-read it — and once something is committed it stays in the history even if you delete it later.
-Anything you don't want read, keep in the Journal app on your phone.
+**"Written, not ready to publish yet."** Add `published: false` under the title:
+
+```
+---
+title: "A hard day"
+published: false
+---
+```
+
+It's off the journal, off the feed, and off the site entirely — the page isn't built at all.
+Delete that one line when it's ready and it goes live at its normal URL.
+
+**"I don't want anyone reading this yet."** Then don't commit it. Write it in the Journal or
+Notes app on your phone and paste it into GitHub when you're happy with it.
+
+This matters: `published: false` hides a post from *readers of the site*, not from *readers of
+the repository*. The repo is public — it has to be, for free hosting — so a draft file sits
+there in plain sight, and once committed it stays in the history even if you delete it later.
+There is no committing something privately.
+
+**One catch**: you can't preview a `published: false` post as a rendered page — it isn't
+built. If you want to see it before anyone else does, either publish it and edit freely
+afterwards (the URL never changes, so nothing breaks), or preview it on a laptop with
+`bundle exec jekyll serve --unpublished`.
+
+Honestly, publishing and then fixing is fine here. Nobody is watching the site at the moment
+you commit, and a typo corrected ten minutes later is invisible.
 
 ---
 

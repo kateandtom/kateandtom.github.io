@@ -1,5 +1,6 @@
 ---
 title: "Into Titcomb Basin"
+published: false
 place: "Titcomb Basin"
 ---
 

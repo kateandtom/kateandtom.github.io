@@ -44,6 +44,16 @@ permalink: /:year/:month/:day/:title/
 
 markdown: kramdown
 
+# Show posts dated later than the build time. Jekyll hides them by default, which
+# is a silent trap here: GitHub builds in UTC, so an evening entry written in New
+# Zealand (UTC+13) carries tomorrow's date and would vanish for hours with no
+# error anywhere. There is no scheduled-publishing use for this site.
+future: true
+
+# `timezone` is deliberately NOT set. Posts carry a date with no time, so Jekyll
+# reads them as midnight UTC; setting a timezone behind UTC (e.g. America/Denver)
+# would shift every post back a day.
+
 # Front matter defaults -------------------------------------------------------
 # A co-written post declares nothing at all; a solo post writes `authors: kate`.
 defaults:

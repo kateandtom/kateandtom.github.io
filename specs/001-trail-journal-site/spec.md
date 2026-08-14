@@ -181,6 +181,10 @@ appear with titles, dates, and content or summaries.
   separate bylines or a duplicated entry in the listing.
 - **A post by a guest** (a friend who walks a section with them): Must render that person's
   name without requiring a template change.
+- **A post dated ahead of the build clock**: An entry written at 9pm in New Zealand carries
+  tomorrow's date as far as a UTC build server is concerned. It must publish anyway. This is
+  the most dangerous class of failure on this site — the post simply is not there, with no
+  error to notice.
 - **A post with no place declared**: Must render cleanly, with no empty location line,
   stray separator, or "undefined" text.
 - **A post outside any hike folder**: Must publish normally, carrying no hike label rather
@@ -240,6 +244,11 @@ appear with titles, dates, and content or summaries.
   locally installed tooling and no build step run by the author.
 - **FR-009**: The journal listing, the map page link, and the feed MUST be generated from
   post files rather than hand-maintained.
+- **FR-009a**: A post dated later than the moment the site is built MUST still publish. The
+  build runs in UTC while the authors may be up to 13 hours ahead of it, so an entry written
+  in the evening can legitimately carry a date the build server considers to be in the future.
+  Such a post disappearing MUST NOT be possible, because the failure is silent — no error, no
+  warning, nothing in the build log.
 - **FR-010**: A post MUST be markable as a draft such that it is excluded from the listing
   and the feed while remaining in the repository. A draft is *unlisted, not private* — the
   repository is public, so draft text is readable by anyone who browses it. Anything genuinely

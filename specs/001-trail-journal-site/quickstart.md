@@ -151,6 +151,10 @@ links people have already shared keep working.
 - The filename starts with a valid `YYYY-MM-DD-`.
 - You didn't leave `published: false` in there.
 
+Dates ahead of today are fine — `future: true` is set in `_config.yml` precisely so that an
+evening entry in New Zealand, which the UTC build server thinks is tomorrow, still shows up.
+Don't remove that line.
+
 To see the actual error: on the repo page, tap the tick or cross next to the latest commit.
 A red cross means the build failed and will tell you which file and line.
 

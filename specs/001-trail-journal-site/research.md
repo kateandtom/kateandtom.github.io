@@ -325,6 +325,37 @@ untouched.
 
 ---
 
+## R14. Future-dated posts — a silent failure found on the live site
+
+**Decision**: set `future: true` in `_config.yml`. Do **not** set `timezone`.
+
+**Rationale**: Jekyll hides posts dated after the build time by default. The first real
+GitHub Pages build exposed this immediately — the site came up correctly with nav, styling
+and the about page, but the journal showed its empty state and every post URL returned 404,
+because the example posts were dated a few days ahead.
+
+That was an artefact of the examples, but it revealed a real hazard. GitHub builds in UTC.
+New Zealand is UTC+12/+13. An entry written at 9pm in a hut and dated with the local date is,
+to the build server, tomorrow — so it would silently not appear, for up to thirteen hours,
+with no error in the build log and nothing on the page to explain it. An author on bad signal
+would reasonably conclude the site was broken. There is no scheduled-publishing use case here
+to protect, so the default buys nothing and costs a lot.
+
+`timezone` is deliberately left unset. Posts carry a date with no time component, which Jekyll
+reads as midnight in the configured zone. Setting a zone *behind* UTC — `America/Denver` for
+the Wind River Range, say — would render every post a day earlier than its filename. Leaving
+it at UTC makes the rendered date always match what was typed.
+
+**Alternatives rejected**:
+
+- *Leaving the default and telling the authors to date carefully*: a rule to remember at 9pm
+  in the rain, enforced by nothing, with a silent penalty. This is the class of design the
+  constitution's Principle III exists to reject.
+- *Setting a timezone to match wherever they are walking*: it is a single global value, wrong
+  for at least one hike at any time, and can shift dates backwards.
+
+---
+
 ## Sources
 
 - GitHub Pages dependency versions — https://pages.github.com/versions/

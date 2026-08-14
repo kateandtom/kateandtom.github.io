@@ -106,6 +106,7 @@ real GitHub Pages build. The first push is the real test.
 - [x] T025 [US2] Verify the byline against all ten cases C1–C10 in `contracts/post-frontmatter.md`, on both the post page and the journal listing — including C9 (unknown key renders raw, never blank) and C10 (empty value falls back to the default)
 - [ ] T026 [US2] Verify the location line against cases L1–L9 in `contracts/post-frontmatter.md` — including L5 (`place, trip` as one phrase) and L8 (neither present, no stray separator) (FR-002e, FR-002g)
 - [ ] T026a [US2] Verify a post in `_posts/wind-rivers/` inherits the "Wind River Range" label with no `trip` field written, and that a post directly in `_posts/` carries no label (FR-002f, SC-008e)
+- [x] T027a [US2] Set `future: true` in `_config.yml` so a post dated ahead of the UTC build clock still publishes; leave `timezone` unset so date-only posts do not shift (FR-009a, research R14)
 - [ ] T027 [US2] Verify draft handling against cases P1–P3: `published: false` removes the post from the listing, the feed, and the built site at once (FR-010)
 - [ ] T028 [US2] Verify URL cases U1–U3: title edits do not change the URL, a macron title with an ASCII filename resolves correctly, and two same-day posts get distinct URLs (FR-002, SC-009)
 - [ ] T029 [US2] Publish a test post end to end from a phone using only the GitHub web editor, timing it against the 5-minute and one-file targets, then delete it (SC-001, SC-002, FR-007, FR-008)

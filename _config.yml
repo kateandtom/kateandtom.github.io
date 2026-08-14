@@ -1,0 +1,83 @@
+# Site metadata ---------------------------------------------------------------
+title: "Kate and Tom"
+description: "Long walks, written down as we go."
+author: "Kate and Tom"
+
+# An organization site is served at the domain root. baseurl MUST stay empty —
+# anything else silently breaks every relative link.
+url: "https://kateandtom.github.io"
+baseurl: ""
+
+# Navigation ------------------------------------------------------------------
+nav:
+  - title: "Journal"
+    url: "/"
+  - title: "About"
+    url: "/about/"
+  - title: "Map"
+    url: "/map/"
+
+# Hikes -----------------------------------------------------------------------
+# One entry per hike, newest first. Each gets its own Google My Maps map, because
+# one map covering Wyoming and New Zealand would be zoomed out to the Pacific.
+# embed_url and link_url are two different strings from My Maps. Each map must be
+# shared PUBLICLY or the embed shows an error to everyone but you.
+hikes:
+  - name: "Wind River Range"
+    where: "Wyoming, USA"
+    embed_url: ""
+    link_url: ""
+  - name: "Te Araroa"
+    where: "New Zealand"
+    embed_url: ""
+    link_url: ""
+
+# Build -----------------------------------------------------------------------
+# Only these two plugins, each serving one requirement. Both are on GitHub
+# Pages' supported list, so no Gemfile is needed to publish.
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Stable forever. Editing a post's title must never change its URL.
+permalink: /:year/:month/:day/:title/
+
+markdown: kramdown
+
+# Front matter defaults -------------------------------------------------------
+# A co-written post declares nothing at all; a solo post writes `authors: kate`.
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      authors: ["kate", "tom"]
+
+  # Trip labels by folder. Put a post in _posts/wind-rivers/ and it inherits the
+  # label — no extra front matter, ever. One block per hike, written once.
+  - scope:
+      path: "_posts/wind-rivers"
+      type: "posts"
+    values:
+      trip: "Wind River Range"
+
+  - scope:
+      path: "_posts/te-araroa"
+      type: "posts"
+    values:
+      trip: "Te Araroa"
+
+# Kept in the repo, kept off the website. Anything without front matter is
+# otherwise copied verbatim into the built site and served publicly.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - specs
+  - .specify
+  - .claude
+  - README.md
+  - tech-setup.md
+  - _trash
+  - "*.tgz"

@@ -1,0 +1,21 @@
+{%- comment -%}
+Date, byline, and location. Place and trip are joined with a comma when both are
+present ("Titcomb Basin, Wind River Range") rather than taking a separator each.
+Either may be absent; neither leaves a stray comma or an empty element.
+{%- endcomment -%}
+{%- assign place = include.post.place -%}
+{%- assign trip = include.post.trip -%}
+{%- if place and place != "" and trip and trip != "" -%}
+  {%- assign where = place | append: ", " | append: trip -%}
+{%- elsif place and place != "" -%}
+  {%- assign where = place -%}
+{%- elsif trip and trip != "" -%}
+  {%- assign where = trip -%}
+{%- else -%}
+  {%- assign where = "" -%}
+{%- endif -%}
+<p class="meta">
+  <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: "%-d %B %Y" }}</time>
+  &middot; {% include byline.html post=include.post %}
+  {%- if where != "" %} &middot; {{ where }}{% endif -%}
+</p>

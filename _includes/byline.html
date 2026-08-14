@@ -1,0 +1,39 @@
+{%- comment -%}
+Renders a post's byline. Contract: specs/001-trail-journal-site/contracts/post-frontmatter.md
+
+Accepts `authors` as either a bare string (`authors: kate`) or a list
+(`authors: [kate, tom]`), because the string form is what is cheap to type on a
+phone. Falls back to the site default when absent or empty. An unknown key is
+emitted raw so a typo is visible on the page rather than silently blank.
+{%- endcomment -%}
+
+{%- assign raw = include.post.authors -%}
+{%- if raw == nil or raw == "" or raw == empty -%}
+  {%- assign raw = site.defaults[0].values.authors -%}
+{%- endif -%}
+
+{%- comment -%} Normalise a string into a one-element list. {%- endcomment -%}
+{%- if raw.first -%}
+  {%- assign keys = raw -%}
+{%- else -%}
+  {%- assign keys = raw | split: "|" -%}
+{%- endif -%}
+
+{%- assign names = "" -%}
+{%- for key in keys -%}
+  {%- assign name = site.data.authors[key] | default: key -%}
+  {%- if forloop.first -%}
+    {%- assign names = name -%}
+  {%- else -%}
+    {%- assign names = names | append: "|" | append: name -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign list = names | split: "|" -%}
+{%- assign penultimate = list.size | minus: 1 -%}
+
+{%- for name in list -%}
+  {{- name -}}
+  {%- if forloop.last == false -%}
+    {%- if forloop.index == penultimate %} and {% else %}, {% endif -%}
+  {%- endif -%}
+{%- endfor -%}

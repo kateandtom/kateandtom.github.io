@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {%- include head.html -%}
+</head>
+<body>
+  <header>
+    {%- include nav.html -%}
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    <p>{{ site.title }} &middot; <a href="{{ '/feed.xml' | relative_url }}">feed</a></p>
+  </footer>
+</body>
+</html>

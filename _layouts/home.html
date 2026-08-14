@@ -1,0 +1,15 @@
+---
+layout: default
+---
+{%- if site.posts.size > 0 %}
+<ul class="entries">
+  {%- for post in site.posts %}
+  <li>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    {% include meta.html post=post %}
+  </li>
+  {%- endfor %}
+</ul>
+{%- else %}
+<p class="empty">No entries yet. The walk starts soon — check back then.</p>
+{%- endif %}

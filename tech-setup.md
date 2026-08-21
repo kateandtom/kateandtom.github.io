@@ -1,8 +1,4 @@
-# Te Araroa Tech Setup
-
-## Personal Journal
-
-I'll use the **Journal app** on my phone for personal journaling during the trail. This is private — just for me.
+# Tech Setup
 
 ## Public Website
 

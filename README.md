@@ -55,6 +55,8 @@ bundle install
 bundle exec jekyll serve
 ```
 
+Then open http://localhost:4000 in your browser.
+
 ## Rules this site is held to
 
 In `specs/001-trail-journal-site/`. The short version: static, no JavaScript, readable

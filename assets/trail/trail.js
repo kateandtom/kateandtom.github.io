@@ -1,7 +1,6 @@
 (() => {
   const root = document.getElementById('trail-visualisation');
-  const slider = document.getElementById('trail-day');
-  if (!root || !slider) return;
+  if (!root) return;
   const total = 1864, pace = 17, midPace = total / 132;
   const $ = selector => root.querySelector(selector);
   const clamp = n => Math.max(0, Math.min(total, n));
@@ -30,6 +29,13 @@
     {end:1540, name:'Waikato to Auckland', station:'Hamilton', text:'Forest tracks, farmland, cycle trails and road or urban paths make a varied mix. Some forest climbs and muddy tracks can be slow even where gradients look modest.'},
     {end:1864, name:'Auckland to Cape Reinga', station:'Kaitāia', text:'Urban and coastal paths give way to forest, road links and long northern beaches. Sand, tides, exposed coastline and muddy forest can affect the pace.'}
   ];
+  // Broad features in each zone; they are not surface proportions or precise locations.
+  const terrainTypes = [
+    ['Beach','Forest','Farmland','Rivers'], ['Alpine','Lakeside','Rough track'],
+    ['Alpine','Riverbeds','Valleys'], ['Alpine','Forest','Coastal track'],
+    ['Urban paths','Coast','Ranges','Road'], ['River journey','Forest','Volcanic'],
+    ['Forest','Farmland','Trails','Road'], ['Urban paths','Forest','Road','Beach']
+  ];
   // Towns are comparison stations, not claims of the weather at the walker's position.
   const stationFor = mile => mile >= 1420 && mile < 1540 ? 'Auckland' : zones.find(z => mile <= z.end).station;
   const hotspots = [[230,12,.42],[355,12,.38],[635,12,.30],[792,18,.62],[830,12,.48],[1160,9,.91],[1480,18,.56],[1864,7,.32]];
@@ -44,14 +50,20 @@
     mark.style.left = pct(centre);
     return `${number(lo)}–${number(hi)} mi`;
   }
-  function update() {
-    const day = Number(slider.value), date = new Date(Date.UTC(2027,0,1+day));
+  const ukRain = [121.5, 96.1, 85.1, 71.7]; // UK 1991–2020 area average, Met Office.
+  function context(id) {
+    const slider = document.getElementById(`${id}-day`), day = Number(slider.value);
+    const date = new Date(Date.UTC(2027,0,1+day));
     const dateText = new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(date);
-    const mile = clamp(day*pace), month = date.getUTCMonth();
-    const zone = zones.find(z => mile <= z.end), stationName = stationFor(mile), station = stations[stationName];
-    $('#trail-date').textContent = dateText; slider.setAttribute('aria-valuetext',dateText);
-    $('#trail-position').textContent = `${dateText} · ${zone.name} · ${number(mile)} miles from Bluff`;
-    root.querySelectorAll('.marker').forEach(el => {el.style.left = pct(mile);});
+    const mile = clamp(day*pace), zone = zones.find(z => mile <= z.end);
+    $(`#${id}-date`).textContent = dateText;
+    slider.setAttribute('aria-valuetext',dateText);
+    $(`#${id}-position`).textContent = `${dateText} · ${zone.name} · ${number(mile)} miles from Bluff`;
+    return {day, mile, zone, month:date.getUTCMonth()};
+  }
+  function updatePeople() {
+    const {day,mile} = context('people');
+    $('#people-panel').querySelectorAll('.marker').forEach(el => {el.style.left = pct(mile);});
     const northCentre = (day+37)*midPace, southCentre = total-(day+47)*midPace;
     const north = range('north',(day+22)*11,(day+42)*16,northCentre);
     const south = range('south',total-(day+68)*16,total-(day+27)*11,southCentre);
@@ -64,14 +76,38 @@
     });
     const score = combined(mile), level = score >= .6 ? 'high' : score >= .28 ? 'moderate' : 'low';
     $('#trail-busyness').textContent = `At our estimated position: ${level} relative activity.`;
+  }
+  function updateWeather() {
+    const {mile,month} = context('weather');
+    const stationName = stationFor(mile), station = stations[stationName];
+    const temps = $('#temperature-chart');
+    temps.innerHTML = months.map((m,i) => `<div class="temp-row${i===month?' current':''}"><span>${m}</span><span class="temp-low">${station.low[i]}°</span><span class="temp-track"><span style="left:${station.low[i]/30*100}%;width:${(station.high[i]-station.low[i])/30*100}%"></span></span><span>${station.high[i]}°</span></div>`).join('');
+    temps.setAttribute('aria-label',`${stationName}, average daily low and high: ${months.map((m,i) => `${m} ${station.low[i]} to ${station.high[i]} degrees Celsius`).join(', ')}`);
     const weather = $('#trail-weather');
-    weather.innerHTML = months.map((m,i) => `<div class="weather-month${i===month?' current':''}"><span>${station.rain[i]} mm</span><span class="bar" style="--height:${station.rain[i]/150*85}%"></span><span>${m}</span></div>`).join('');
-    weather.setAttribute('aria-label',`${stationName}: average monthly rainfall, ${months.map((m,i) => `${m} ${station.rain[i]} millimetres`).join(', ')}`);
-    $('#trail-weather-text').textContent = `${stationName} station, ${months[month]}: average daily low ${station.low[month]}°C, high ${station.high[month]}°C; ${station.rain[month]} mm rain in the month. This station is a broad comparison, not trail conditions.`;
+    weather.innerHTML = months.map((m,i) => `<div class="weather-month${i===month?' current':''}"><div class="rain-scale"><span class="rain-bar" style="height:${station.rain[i]/150*100}%"></span><span class="uk-line" style="bottom:${ukRain[i]/150*100}%"></span></div><span>${m}</span><span>${station.rain[i]} mm</span><span class="uk-label">UK ${ukRain[i]}</span></div>`).join('');
+    weather.setAttribute('aria-label',`${stationName}, average monthly rainfall: ${months.map((m,i) => `${m} ${station.rain[i]} millimetres, UK ${ukRain[i]} millimetres`).join('; ')}`);
+    const comparison = station.rain[month] > ukRain[month] ? 'above' : station.rain[month] < ukRain[month] ? 'below' : 'equal to';
+    $('#trail-weather-text').textContent = `${stationName} station in ${months[month]}: ${station.rain[month]} mm, ${comparison} the UK average of ${ukRain[month]} mm.`;
+  }
+  function updateTerrain() {
+    const {mile,zone} = context('terrain');
+    $('#terrain-panel .marker').style.left = pct(mile);
     $('#trail-terrain').textContent = `${zone.name}: ${zone.text}`;
+    $('#terrain-zones').innerHTML = zones.map((z,i) => `<div class="terrain-zone${z===zone?' active':''}"><strong>${z.name}${z===zone?' · current':''}</strong><div>${terrainTypes[i].map(t => `<span>${t}</span>`).join('')}</div></div>`).join('');
+    const points = window.trailMapPoints;
+    if (!points || !points.length) return;
+    const km = (1-mile/total)*3058;
+    let i = points.findIndex(p => p[0] >= km);
+    if (i < 0) i = points.length-1;
+    const b=points[i], a=points[Math.max(0,i-1)], ratio=b[0]===a[0]?0:(km-a[0])/(b[0]-a[0]);
+    const x=a[1]+ratio*(b[1]-a[1]), y=a[2]+ratio*(b[2]-a[2]);
+    ['#map-dot','#map-dot-halo'].forEach(selector => { $(selector).setAttribute('cx',x.toFixed(1)); $(selector).setAttribute('cy',y.toFixed(1)); });
+    $('.trail-map').setAttribute('aria-label',`New Zealand overview map. Estimated position: ${zone.name}, ${number(mile)} miles from Bluff. The line is a simplified route.`);
   }
   let previous = 0;
   root.querySelectorAll('.terrain-strip span').forEach((el,i) => {el.style.setProperty('--size',zones[i].end-previous); previous=zones[i].end;});
-  slider.addEventListener('input',update);
-  update();
+  [['people',updatePeople],['weather',updateWeather],['terrain',updateTerrain]].forEach(([id,update]) => {
+    document.getElementById(`${id}-day`).addEventListener('input',update);
+    update();
+  });
 })();

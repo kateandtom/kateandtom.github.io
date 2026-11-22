@@ -1,27 +1,51 @@
 <link rel="stylesheet" href="{{ '/assets/trail/trail.css' | relative_url }}">
 <div class="trail" id="trail-visualisation">
-  <div class="trail-date"><label for="trail-day">Explore a date <span>(New Zealand)</span></label><output id="trail-date" for="trail-day">1 Jan 2027</output></div>
-  <input id="trail-day" type="range" min="0" max="110" value="0" aria-valuetext="1 Jan 2027">
-  <p class="trail-position" id="trail-position">1 Jan 2027 · Bluff · 0 miles</p>
-  <div class="trail-islands"><span>South Island</span><span>North Island</span></div>
-  <h2>People on the trail</h2>
-  <p class="trail-note">Illustrative positions and relative activity, not measured crowds.</p>
-  <div class="trail-key"><span class="you-key">Our plan</span><span class="north-key">Northbound</span><span class="south-key">Southbound</span></div>
-  <div class="trail-bubbles" aria-hidden="true"><div class="divider"></div><div class="band north"></div><div class="centre north"></div><div class="band south"></div><div class="centre south"></div><div class="marker"></div></div>
-  <p class="trail-note" id="trail-ranges">Loading estimated positions…</p>
-  <div class="trail-chart"><div class="divider"></div><div class="marker"></div><svg viewBox="0 0 1000 100" preserveAspectRatio="none" role="img" aria-label="Illustrative relative busyness along the trail"><polyline class="local-line"/><polyline class="combined-line"/></svg></div>
-  <p class="trail-note">Solid: combined activity · dashed: day and section walkers. Fixed scale 0–1.5, arbitrary units.</p>
-  <p id="trail-busyness" class="trail-result"></p>
-  <h2>Weather along the way</h2>
-  <p class="trail-note">Monthly rainfall at a representative town station · 1991–2020 average</p>
-  <div id="trail-weather" class="weather-bars" role="img" aria-label="Monthly rainfall at representative station"></div>
-  <p id="trail-weather-text" class="trail-result"></p>
-  <h2>What’s underfoot?</h2>
-  <p class="trail-note">Broad sections, not a precise surface or difficulty rating. Select a date above to explore.</p>
-  <div class="terrain-strip" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="marker"></div></div>
-  <p id="trail-terrain" class="trail-result"></p>
-  <div class="trail-axis"><span>Bluff · 0 mi</span><span>Cape Reinga · 1,864 mi</span></div>
-  <p class="trail-landmarks">Along the route: Wānaka 230 · Lake Tekapo 355 · St Arnaud 635 · Cook Strait 810 · Tongariro 1,160 · Auckland 1,480 miles</p>
-  <details><summary>Route landmarks and model details</summary><p>Approximate miles from Bluff: Wānaka 230 · Lake Tekapo 355 · St Arnaud 635 · Cook Strait 810 · Tongariro 1,160 · Auckland 1,480 · Cape Reinga 1,864. The Cook Strait divider uses 810 miles throughout.</p><p>Through-walkers average about 14.1 miles per calendar day in the model, with illustrative 11–16 mile daily bands and broad starting windows. The activity index uses fixed, uncalibrated hotspot weights and moving hiker peaks; “low”, “moderate” and “high” are relative labels, not people per day.</p></details>
+  <section class="trail-panel" id="people-panel">
+    <h2>People on the trail</h2>
+    <p class="trail-note">An illustrative picture of through-walkers and local activity, not measured crowds.</p>
+    <div class="trail-date"><label for="people-day">Date <span>(New Zealand)</span></label><output for="people-day" id="people-date">1 Jan 2027</output></div>
+    <input id="people-day" type="range" min="0" max="110" value="0" aria-valuetext="1 Jan 2027">
+    <p class="trail-position" id="people-position"></p>
+    <div class="trail-islands"><span>South Island</span><span>North Island</span></div>
+    <div class="trail-key"><span class="you-key">Our plan</span><span class="north-key">Northbound</span><span class="south-key">Southbound</span></div>
+    <div class="trail-bubbles" aria-hidden="true"><div class="divider"></div><div class="band north"></div><div class="centre north"></div><div class="band south"></div><div class="centre south"></div><div class="marker"></div></div>
+    <p class="trail-note" id="trail-ranges"></p>
+    <div class="trail-chart"><div class="divider"></div><div class="marker"></div><svg viewBox="0 0 1000 100" preserveAspectRatio="none" role="img" aria-label="Illustrative relative busyness along the trail"><polyline class="local-line"/><polyline class="combined-line"/></svg></div>
+    <p class="trail-note">Solid: combined activity · dashed: day and section walkers. Fixed scale 0–1.5, arbitrary units.</p>
+    <p id="trail-busyness" class="trail-result"></p>
+    <div class="trail-axis"><span>Bluff · 0 mi</span><span>Cape Reinga · 1,864 mi</span></div>
+    <p class="trail-landmarks">Wānaka 230 · Lake Tekapo 355 · St Arnaud 635 · Cook Strait 810 · Tongariro 1,160 · Auckland 1,480 miles</p>
+  </section>
+  <section class="trail-panel" id="weather-panel">
+    <h2>Weather along the way</h2>
+    <p class="trail-note">Historical monthly averages at a representative town, not a forecast or mountain conditions.</p>
+    <div class="trail-date"><label for="weather-day">Date <span>(New Zealand)</span></label><output for="weather-day" id="weather-date">1 Jan 2027</output></div>
+    <input id="weather-day" type="range" min="0" max="110" value="0" aria-valuetext="1 Jan 2027">
+    <p class="trail-position" id="weather-position"></p>
+    <h3>Average daily temperature</h3>
+    <p class="trail-note">Mean daily low to mean daily high · 1991–2020</p>
+    <div id="temperature-chart" class="temperature-chart" role="img"></div>
+    <h3>Monthly rainfall</h3>
+    <p class="trail-note">Bar: station average · line: UK-wide average for the same month · millimetres</p>
+    <div id="trail-weather" class="weather-bars" role="img"></div>
+    <p id="trail-weather-text" class="trail-result"></p>
+    <p class="trail-note">The UK line is an average across the whole UK; local conditions vary. A town station and a whole-country average are useful context, not like-for-like forecasts.</p>
+  </section>
+  <section class="trail-panel" id="terrain-panel">
+    <h2>What’s underfoot?</h2>
+    <p class="trail-note">A broad guide to the terrain and an approximate position on the route.</p>
+    <div class="trail-date"><label for="terrain-day">Date <span>(New Zealand)</span></label><output for="terrain-day" id="terrain-date">1 Jan 2027</output></div>
+    <input id="terrain-day" type="range" min="0" max="110" value="0" aria-valuetext="1 Jan 2027">
+    <p class="trail-position" id="terrain-position"></p>
+    {% include trail-map.html %}
+    <p class="trail-note">Dot: estimated position · line: simplified route. The dot is a planning estimate, not live tracking; the Cook Strait transfer is shown as a straight connection.</p>
+    <div class="terrain-strip" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="marker"></div></div>
+    <div class="trail-axis"><span>Bluff</span><span>Cape Reinga</span></div>
+    <p id="trail-terrain" class="trail-result"></p>
+    <div id="terrain-zones" class="terrain-zones" aria-label="Broad types of terrain by section"></div>
+    <p class="trail-note">Section boundaries and terrain are broad approximations; conditions and pace can change within a section.</p>
+  </section>
+  <details><summary>Route landmarks and model details</summary><p>Approximate miles from Bluff: Wānaka 230 · Lake Tekapo 355 · St Arnaud 635 · Cook Strait 810 · Tongariro 1,160 · Auckland 1,480 · Cape Reinga 1,864. The Cook Strait divider uses 810 miles.</p><p>Through-walkers average about 14.1 miles per calendar day in the model, with illustrative 11–16 mile daily bands and broad starting windows. Activity is an uncalibrated index, not people per day.</p></details>
 </div>
+<script src="{{ '/assets/trail/map-data.js' | relative_url }}" defer></script>
 <script src="{{ '/assets/trail/trail.js' | relative_url }}" defer></script>

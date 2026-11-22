@@ -25,3 +25,30 @@
 .trail details {margin-top:1rem;font-size:.9rem;} .trail summary {cursor:pointer;font-weight:700;} .trail :focus-visible {outline:3px solid #204d7a;outline-offset:3px;}
 
 .trail-landmarks { color:#495a56; font-size:.85rem; }
+.trail { padding:0; border:0; background:transparent; }
+.trail-panel { margin:1.5rem 0; padding:1rem; border:1px solid #cdd9d5; border-radius:.6rem; background:#f8fbf9; }
+.trail-panel h2 {margin:.1rem 0 .5rem;}
+.trail h3 {font-size:1rem; margin:1.4rem 0 .2rem;}
+.temperature-chart {display:grid;gap:.5rem;}
+.temp-row {display:grid;grid-template-columns:2.2rem 3rem minmax(4rem,1fr) 3rem;gap:.3rem;align-items:center;font-size:.9rem;}
+.temp-row.current {font-weight:700;color:#174c44;}
+.temp-low {text-align:right;}
+.temp-track {position:relative;height:.65rem;border-radius:1rem;background:#e0e9e4;}
+.temp-track span {position:absolute;top:0;height:100%;border-radius:1rem;background:#d57d3f;}
+.temp-row.current .temp-track span {background:#b24c1b;}
+.weather-bars {height:auto;align-items:start;gap:.4rem;border:0;}
+.weather-month {height:auto;font-size:.8rem;}
+.weather-month .rain-scale {position:relative;width:80%;height:130px;border-bottom:1px solid #899a92;}
+.weather-month .rain-bar {position:absolute;bottom:0;left:15%;width:70%;background:#8caaa1;}
+.weather-month.current .rain-bar {background:#245c56;}
+.weather-month .uk-line {position:absolute;left:0;right:0;border-top:3px solid #9d4b24;}
+.uk-label {color:#733c22;}
+.trail-map {display:block;width:min(100%,22rem);height:auto;max-height:31rem;margin:.5rem auto;background:#e9f3f3;border-radius:.5rem;}
+.trail-map .land {fill:#dce9d9;stroke:#789681;stroke-width:1;stroke-linejoin:round;}
+.trail-map .map-route {fill:none;stroke:#a74d2b;stroke-width:2.1;stroke-linejoin:round;stroke-linecap:round;}
+.trail-map .map-dot-halo {fill:#fff;stroke:#204d7a;stroke-width:1.5;}
+.trail-map .map-dot {fill:#204d7a;}
+.terrain-zones {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.5rem;margin:1rem 0;}
+.terrain-zone {padding:.55rem;border:1px solid #c6d5cd;border-radius:.35rem;font-size:.85rem;line-height:1.4;}
+.terrain-zone.active {border:2px solid #245c56;background:#e6f1e9;}
+.terrain-zone span {display:inline-block;margin:.3rem .2rem 0 0;padding:.1rem .35rem;border-radius:.2rem;background:#e1e9e3;}

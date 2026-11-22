@@ -1,0 +1,27 @@
+.trail { margin: 2rem 0; padding: 1.1rem; border: 1px solid #cdd9d5; border-radius: .6rem; background: #f8fbf9; }
+.trail h2 { margin: 1.8rem 0 .35rem; }
+.trail p { margin: .45rem 0 .9rem; }
+.trail-date { display:flex; justify-content:space-between; gap:.5rem; flex-wrap:wrap; font-weight:700; }
+.trail-date span,.trail-note { color:#495a56; font-size:.9rem; }
+.trail input[type=range] { width:100%; accent-color:#245c56; margin: .7rem 0; }
+.trail-position,.trail-result { font-weight:700; }
+.trail-islands {display:grid;grid-template-columns:43.45% 56.55%;text-align:center;color:#495a56;font-size:.85rem;}
+.trail-islands span+span {border-left:1px dashed #6f817c;}
+.trail-key {display:flex; flex-wrap:wrap; gap:.3rem 1rem; font-size:.9rem;}
+.trail-key span:before {content:'';display:inline-block;width:.7rem;height:.7rem;margin-right:.35rem;background:#204d7a;}
+.trail-key .north-key:before {background:#318261;} .trail-key .south-key:before {background:#bc6729;}
+.trail-bubbles,.trail-chart,.terrain-strip {position:relative;background:#e7efeb;border-radius:.3rem;overflow:hidden;}
+.trail-bubbles {height:76px;margin:.5rem 0;}
+.divider {position:absolute;left:43.4549%;height:100%;border-left:1px dashed #6f817c;z-index:1;}
+.band,.centre,.marker {position:absolute;} .band {height:18px;opacity:.45;border-radius:4px;} .centre {width:3px;height:18px;transform:translateX(-50%);}
+.north {top:10px;background:#287b5c;} .south {top:46px;background:#ad5722;}
+.marker {top:0;bottom:0;width:3px;background:#204d7a;z-index:2;transform:translateX(-50%);}
+.trail-chart {height:90px;} .trail-chart svg {width:100%;height:100%;display:block;} .trail-chart polyline {fill:none;stroke:#65489a;stroke-width:2;vector-effect:non-scaling-stroke;} .trail-chart .local-line {stroke:#596d66;stroke-dasharray:4 4;}
+.weather-bars {display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;align-items:end;height:130px;border-bottom:1px solid #899a92;}
+.weather-month {display:flex;flex-direction:column;justify-content:end;align-items:center;height:100%;font-size:.8rem;line-height:1.3;}
+.weather-month .bar {width:70%;height:var(--height);background:#8caaa1;min-height:2px;} .weather-month.current .bar {background:#245c56;} .weather-month.current {font-weight:700;}
+.terrain-strip {display:flex;height:25px;} .terrain-strip span {flex:var(--size);background:#8ba99a;border-right:1px solid white;} .terrain-strip span:nth-child(even) {background:#c69d73;}
+.trail-axis {display:flex;justify-content:space-between;gap:1rem;font-size:.85rem;color:#495a56;}
+.trail details {margin-top:1rem;font-size:.9rem;} .trail summary {cursor:pointer;font-weight:700;} .trail :focus-visible {outline:3px solid #204d7a;outline-offset:3px;}
+
+.trail-landmarks { color:#495a56; font-size:.85rem; }

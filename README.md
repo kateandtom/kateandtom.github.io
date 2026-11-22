@@ -61,3 +61,18 @@ Then open http://localhost:4000 in your browser.
 
 In `specs/001-trail-journal-site/`. The short version: static, no JavaScript, readable
 with CSS off, under 100 KB a page, publishable from a phone, and free to run forever.
+
+### Add a Te Araroa journal entry to the map
+
+Add decimal coordinates to the post's front matter (for example, a general area
+rather than a precise campsite):
+
+```yaml
+place: "Bluff"
+latitude: -46.60
+longitude: 168.33
+```
+
+The map links to published Te Araroa posts with both coordinates. Entries without
+coordinates remain listed beneath the map. Coordinates are public, so choose the
+level of location detail you are happy to share.

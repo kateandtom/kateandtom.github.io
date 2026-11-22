@@ -52,3 +52,7 @@
 .terrain-zone {padding:.55rem;border:1px solid #c6d5cd;border-radius:.35rem;font-size:.85rem;line-height:1.4;}
 .terrain-zone.active {border:2px solid #245c56;background:#e6f1e9;}
 .terrain-zone span {display:inline-block;margin:.3rem .2rem 0 0;padding:.1rem .35rem;border-radius:.2rem;background:#e1e9e3;}
+.journal-pin-target { fill: transparent; }
+.journal-pin-dot { fill: #204d7a; stroke: #fff; stroke-width: 2; }
+.journal-pin:hover .journal-pin-dot, .journal-pin:focus .journal-pin-dot { fill: #ba4a28; stroke-width: 3; }
+.journal-pin:focus { outline: none; }

@@ -77,7 +77,7 @@ place: "Whakahoro"
 
 Free text — write whatever you'd say out loud. "Titcomb Basin", "a hut with no name",
 "somewhere south of Boyle Village". Leave it out and the post just doesn't show a location.
-No coordinates, ever.
+For Te Araroa, optional `latitude` and `longitude` fields also place a marker on the map. Both must be decimal coordinates, for example `latitude: -46.60` and `longitude: 168.33`. Coordinates are public, so choose an appropriate level of detail. Leave them out to list the post beneath the map without a marker.
 
 It reads alongside the hike name: `Titcomb Basin, Wind River Range`.
 

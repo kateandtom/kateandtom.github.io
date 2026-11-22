@@ -1,51 +1,16 @@
-<link rel="stylesheet" href="{{ '/assets/trail/trail.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-<div class="trail" id="trail-visualisation">
-  <section class="trail-panel" id="people-panel">
-    <h2>People on the trail</h2>
-    <p class="trail-note">An illustrative picture of through-walkers and local activity, not measured crowds.</p>
-    <div class="trail-date"><label for="people-day">Date <span>(New Zealand)</span></label><output for="people-day" id="people-date">1 Jan 2027</output></div>
-    <input id="people-day" type="range" min="0" max="110" value="0" aria-valuetext="1 Jan 2027">
-    <p class="trail-position" id="people-position"></p>
-    <div class="trail-islands"><span>South Island</span><span>North Island</span></div>
-    <div class="trail-key"><span class="you-key">Our plan</span><span class="north-key">Northbound</span><span class="south-key">Southbound</span></div>
-    <div class="trail-bubbles" aria-hidden="true"><div class="divider"></div><div class="band north"></div><div class="centre north"></div><div class="band south"></div><div class="centre south"></div><div class="marker"></div></div>
-    <p class="trail-note" id="trail-ranges"></p>
-    <div class="trail-chart"><div class="divider"></div><div class="marker"></div><svg viewBox="0 0 1000 100" preserveAspectRatio="none" role="img" aria-label="Illustrative relative busyness along the trail"><polyline class="local-line"/><polyline class="combined-line"/></svg></div>
-    <p class="trail-note">Solid: combined activity · dashed: day and section walkers. Fixed scale 0–1.5, arbitrary units.</p>
-    <p id="trail-busyness" class="trail-result"></p>
-    <div class="trail-axis"><span>Bluff · 0 mi</span><span>Cape Reinga · 1,864 mi</span></div>
-    <p class="trail-landmarks">Wānaka 230 · Lake Tekapo 355 · St Arnaud 635 · Cook Strait 810 · Tongariro 1,160 · Auckland 1,480 miles</p>
-  </section>
-  <section class="trail-panel" id="weather-panel">
-    <h2>Weather along the way</h2>
-    <p class="trail-note">Historical monthly averages at a representative town, not a forecast or mountain conditions.</p>
-    <div class="trail-date"><label for="weather-day">Date <span>(New Zealand)</span></label><output for="weather-day" id="weather-date">1 Jan 2027</output></div>
-    <input id="weather-day" type="range" min="0" max="110" value="0" aria-valuetext="1 Jan 2027">
-    <p class="trail-position" id="weather-position"></p>
-    <h3>Average daily temperature</h3>
-    <p class="trail-note">Mean daily low to mean daily high · 1991–2020</p>
-    <div id="temperature-chart" class="temperature-chart" role="img"></div>
-    <h3>Monthly rainfall</h3>
-    <p class="trail-note">Bar: station average · line: UK-wide average for the same month · millimetres</p>
-    <div id="trail-weather" class="weather-bars" role="img"></div>
-    <p id="trail-weather-text" class="trail-result"></p>
-    <p class="trail-note">The UK line is an average across the whole UK; local conditions vary. A town station and a whole-country average are useful context, not like-for-like forecasts.</p>
-  </section>
-  <section class="trail-panel" id="terrain-panel">
-    <h2>What’s underfoot?</h2>
-    <p class="trail-note">A broad guide to the terrain and an approximate position on the route.</p>
-    <div class="trail-date"><label for="terrain-day">Date <span>(New Zealand)</span></label><output for="terrain-day" id="terrain-date">1 Jan 2027</output></div>
-    <input id="terrain-day" type="range" min="0" max="110" value="0" aria-valuetext="1 Jan 2027">
-    <p class="trail-position" id="terrain-position"></p>
-    {% include trail-map.html %}
-    <p class="trail-note">Dot: estimated position · line: simplified route. The dot is a planning estimate, not live tracking; the Cook Strait transfer is shown as a straight connection.</p>
-    <div class="terrain-strip" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="marker"></div></div>
-    <div class="trail-axis"><span>Bluff</span><span>Cape Reinga</span></div>
-    <p id="trail-terrain" class="trail-result"></p>
-    <div id="terrain-zones" class="terrain-zones" aria-label="Broad types of terrain by section"></div>
-    <p class="trail-note">Section boundaries and terrain are broad approximations; conditions and pace can change within a section.</p>
-  </section>
-  <details><summary>Route landmarks and model details</summary><p>Approximate miles from Bluff: Wānaka 230 · Lake Tekapo 355 · St Arnaud 635 · Cook Strait 810 · Tongariro 1,160 · Auckland 1,480 · Cape Reinga 1,864. The Cook Strait divider uses 810 miles.</p><p>Through-walkers average about 14.1 miles per calendar day in the model, with illustrative 11–16 mile daily bands and broad starting windows. Activity is an uncalibrated index, not people per day.</p></details>
-</div>
+<link rel="stylesheet" href="{{ '/assets/trail/conditions.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+<div class="conditions-preview"><header><div class="eyebrow">Kate &amp; Tom · 2027 · Northbound</div><h2 class="hero-title">The trail ahead</h2><p class="lead">Explore what Te Araroa is likely to feel like as you move north. Slide through your journey from Bluff to Cape Reinga.</p></header>
+<section class="slider-card"><div class="slider-top"><div><div class="eyebrow">Expected date</div><div id="date" class="date" aria-live="polite">1 January 2027</div></div><div id="mile" class="mile">0 / 1,864 miles</div></div><input id="day" type="range" min="0" max="110" step="1" value="0" aria-label="Day of your Te Araroa hike"><div class="ends"><span>Bluff · Start</span><span>Cape Reinga · Finish</span></div></section>
+<div class="hero"><section class="map-card"><div class="section-title">Your position</div>{% include trail-map.html %}<div class="map-caption">Estimated location on the 2026–27 route<br>at 17 miles per calendar day</div></section>
+<section class="conditions"><div class="section-title">Conditions along the trail</div><div id="zone" class="zone">Southland</div><div id="sub" class="sub">South Island · Early January</div>
+<div class="condition"><div class="glyph"><svg viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 0 1 4 0v9a5 5 0 1 1-4 0Z"/><path d="M12 10v9"/></svg></div><div><div class="key">Typical daily low – high</div><div class="value" id="temperature">9.5–18.9°C</div><div class="detail" id="tempDetail">Station climate average, not mountain forecast</div></div></div>
+<div class="condition"><div class="glyph"><svg viewBox="0 0 24 24"><path d="m12 8 0 9M8 6l-4-3m12 3 4-3M8 13l-5 4m13-4 5 4M9 11C2 8 4 3 11 8m2 0c7-5 9 0 2 3M8 17a4 4 0 0 0 8 0V9a4 4 0 0 0-8 0Z"/></svg></div><div><div class="key">Sandflies / biting insects</div><div class="value" id="bugs">Variable</div><div class="detail">Qualitative exposure estimate</div></div></div>
+<div class="condition"><div class="glyph"><svg viewBox="0 0 24 24"><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2m0-14-2 2M7 17l-2 2"/><circle cx="12" cy="12" r="4"/></svg></div><div><div class="key">Wetness · monthly rainfall</div><div class="value" id="rain">89 mm / month</div><div class="detail" id="rainDetail">Historical station rainfall, not trail mud</div></div></div>
+<div class="condition"><div class="glyph"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V9l7-6 7 6v11M9 20v-8h6v8"/><path d="M12 6v3"/></svg></div><div><div class="key">Remoteness</div><div class="value" id="remote">Mixed</div><div class="detail">Qualitative estimate; access varies within sections</div></div></div>
+<div class="condition"><div class="glyph"><svg viewBox="0 0 24 24"><path d="m2 20 7-11 4 6 3-4 6 9H2Z"/><path d="m7 12 2-3 4 6"/></svg></div><div><div class="key">Terrain</div><div class="value" id="terrain">Coast &amp; forest</div><div class="detail" id="terrainDetail">Beach, forest, farmland and muddy tracks</div></div></div>
+<div class="forecast-note" id="station">Climate reference: Invercargill · January (1991–2020).</div></section></div>
+<section class="strip"><h2>What to expect here</h2><p id="description" class="overview"></p><div class="tags" id="tags"></div><p class="alert">Conditions change rapidly, particularly in the mountains and at river crossings. Check official trail alerts and forecasts before walking.</p></section>
+<div class="links"><strong>Sources &amp; assumptions</strong> · <a href="https://www.teararoa.org.nz/notes-and-maps/" target="_blank" rel="noopener">Te Araroa 2026–27 maps and trail notes</a> · <a href="https://niwa.co.nz/climate-and-weather/climate-data-and-activities" target="_blank" rel="noopener">NIWA 1991–2020 climate normals</a> · <a href="https://www.teararoa.org.nz/trail-alerts/" target="_blank" rel="noopener">Current trail alerts</a> · <a href="https://teara.govt.nz/en/sandflies-and-mosquitoes/page-1" target="_blank" rel="noopener">Te Ara sandfly information</a>.
+<details><summary>How accurate is this?</summary><p>The map uses a simplified rendering of Te Araroa Trust's 2026–27 GPX (CC BY 4.0), with the New Zealand coastline from Natural Earth. Progress is an assumption of exactly 17 miles per calendar day, including rest days and transfers, across an approximately 1,864-mile (3,000-km) trail. Position is interpolated along a sampled route and can be inaccurate around diversions or transport sections. Station values are historical monthly 1991–2020 averages, not observed or forecast temperatures and rainfall on the trail. Station locations may be far away from alpine sections and considerably warmer or drier. Terrain, remoteness and insect exposure are rough, uncalibrated estimates based on terrain, official route descriptions and broader NZ ecological patterns; they are not datasets of measured conditions. Sandfly abundance varies locally with weather, waterways and exposure. This is a planning visualisation, not navigation or a weather forecast.</p></details></div></div>
 <script src="{{ '/assets/trail/map-data.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
-<script src="{{ '/assets/trail/trail.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+<script src="{{ '/assets/trail/conditions.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>

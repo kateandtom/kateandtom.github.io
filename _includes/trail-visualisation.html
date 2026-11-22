@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ '/assets/trail/trail.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/trail/trail.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 <div class="trail" id="trail-visualisation">
   <section class="trail-panel" id="people-panel">
     <h2>People on the trail</h2>
@@ -47,5 +47,5 @@
   </section>
   <details><summary>Route landmarks and model details</summary><p>Approximate miles from Bluff: Wānaka 230 · Lake Tekapo 355 · St Arnaud 635 · Cook Strait 810 · Tongariro 1,160 · Auckland 1,480 · Cape Reinga 1,864. The Cook Strait divider uses 810 miles.</p><p>Through-walkers average about 14.1 miles per calendar day in the model, with illustrative 11–16 mile daily bands and broad starting windows. Activity is an uncalibrated index, not people per day.</p></details>
 </div>
-<script src="{{ '/assets/trail/map-data.js' | relative_url }}" defer></script>
-<script src="{{ '/assets/trail/trail.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/trail/map-data.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+<script src="{{ '/assets/trail/trail.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
